@@ -11,7 +11,7 @@ set(PROJECT_VERSION 0.0.${PATCH_VERSION})
 project(cmake_deps_prj VERSION ${PROJECT_VERSION})
 
 # Найти компонент из пакета Boost
-find_package(Boost COMPONENTS log REQUIRED)
+find_package(Boost 1.74.0 REQUIRED COMPONENTS unit_test_framework)
 
 # Указываем файл для конфигурации при помощи CMake
 configure_file(version.h.in version.h)

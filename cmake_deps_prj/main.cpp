@@ -1,17 +1,12 @@
-#include <iostream>
+#define BOOST_TEST_MODULE test_version
+#include <boost/test/unit_test.hpp>
 #include "version.h"
-#include <boost/log/trivial.hpp>
 
-int main (int, char **) {
-    std::cout << "Version: " << PROJECT_VERSION_PATCH << std::endl;
-    std::cout << "Hello, world!" << std::endl;
+BOOST_AUTO_TEST_SUITE(test_version)
 
-    BOOST_LOG_TRIVIAL(trace) << "A trace severity message";
-    BOOST_LOG_TRIVIAL(debug) << "A debug severity message";
-    BOOST_LOG_TRIVIAL(info) << "An informational severity message";
-    BOOST_LOG_TRIVIAL(warning) << "A warning severity message";
-    BOOST_LOG_TRIVIAL(error) << "An error severity message";
-    BOOST_LOG_TRIVIAL(fatal) << "A fatal severity message";
-
-    return 0;
+BOOST_AUTO_TEST_CASE(test_valid_version)
+{
+    BOOST_CHECK(PROJECT_VERSION_PATCH> 0);
 }
+
+BOOST_AUTO_TEST_SUITE_END()
