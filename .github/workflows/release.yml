@@ -14,10 +14,14 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: true
-      - run: sudo apt-get update 
+      - run: sudo apt-get update && sudo apt-get install libboost-test-dev -y
       - run: cd cmake_simple_prj && cmake . -DPATCH_VERSION=${{ github.run_number }} && cd ..
       - run: cd cmake_simple_prj && cmake --build . && cd ..
       - run: cd cmake_simple_prj && cmake --build . --target package && cd ..
+      - run: cd cmake_deps_prj && cmake . -DPATCH_VERSION=${{ github.run_number }} && cd ..
+      - run: cd cmake_deps_prj && cmake --build . && cd ..
+      - run: cd cmake_deps_prj && cmake --build . --target package && cd ..
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -28,8 +32,9 @@ jobs:
           release_name: Release ${{ github.run_number }}
           draft: false
           prerelease: false
-      - name: Upload Release Asset
-        id: upload-release-asset
+
+      - name: Upload Release Asset cmake_simple_prj
+        id: upload-release-asset-cmake_simple_prj
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -37,4 +42,15 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./cmake_simple_prj/cmake_simple_prj-0.0.${{ github.run_number }}-Linux.deb
           asset_name: cmake_simple_prj-0.0.${{ github.run_number }}-Linux.deb
+          asset_content_type: application/vnd.debian.binary-package
+          
+      - name: Upload Release Asset cmake_deps_prj
+        id: upload-release-asset-cmake_deps_prj
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./cmake_deps_prj/cmake_deps_prj-0.0.${{ github.run_number }}-Linux.deb
+          asset_name: cmake_deps_prj-0.0.${{ github.run_number }}-Linux.deb
           asset_content_type: application/vnd.debian.binary-package
