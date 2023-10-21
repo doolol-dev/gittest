@@ -8,7 +8,7 @@ set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
 set(PROJECT_VERSION 0.0.${PATCH_VERSION})
 
 # Задать имя проекта и версию
-project(cmake_simple_prj VERSION ${PROJECT_VESRION})
+project(cmake_simple_prj VERSION ${PROJECT_VERSION})
 
 # Указываем файл для конфигурации при помощи CMake
 configure_file(version.h.in version.h)
