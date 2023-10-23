@@ -17,13 +17,15 @@ project(superproject VERSION ${PROJECT_VERSION})
 # Добавить в суперпроект подпроекты
 add_subdirectory(exec_app_1)
 add_subdirectory(exec_app_2)
+add_subdirectory(lib_header)
+add_subdirectory(lib_shared)
 
 
 # # Правила установки для проекта
 # install(TARGETS cmake_simple_prj RUNTIME DESTINATION bin)
 
 # Правила генерации пакета
-set(CPACK_GENERATOR DEB)
+set(CPACK_GENERATOR DEB STGZ ZIP)
 set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")

@@ -2,11 +2,16 @@
 project(exec_app_2 VERSION ${PROJECT_VERSION})
 
 # Указываем файл для конфигурации при помощи CMake
-configure_file(version.h.in "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/include/version.h")
+configure_file(version.h.in "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/include/${PROJECT_NAME}_version.h")
 
 # Добавить в проект цель - исполняемый файл
 add_executable(${PROJECT_NAME}  
     src/main.cpp
+)
+
+# Прилинковать библиотеки
+target_link_libraries(${PROJECT_NAME}
+    superproject::lib_header 
 )
 
 # Установить свойства для цели
@@ -17,8 +22,8 @@ set_target_properties(${PROJECT_NAME}  PROPERTIES
 
 # Установить директории заголовочных файлов
 target_include_directories(${PROJECT_NAME} 
-    PRIVATE ./include 
-    PRIVATE "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/include"
+    PRIVATE "${PROJECT_SOURCE_DIR}/include"
+    PRIVATE "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/include/"
 )
 
 # Установить параметры компиляции
