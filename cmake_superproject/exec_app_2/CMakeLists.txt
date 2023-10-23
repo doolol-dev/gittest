@@ -32,4 +32,9 @@ target_compile_options(${PROJECT_NAME}  PRIVATE
 )
 
 # Правила установки для проекта
-install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+install (TARGETS ${PROJECT_NAME}
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+    PUBLIC_HEADER DESTINATION include
+)
